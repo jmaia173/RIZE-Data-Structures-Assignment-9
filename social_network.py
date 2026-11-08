@@ -34,3 +34,33 @@ class SocialNetwork:
         for name, person in self.people.items():
             friend_names = ", ".join(friend.name for friend in person.friends)
             print(f"{name} is friends with: {friend_names}")
+
+if __name__ == "__main__":
+    network = SocialNetwork()
+
+    # Add people (6+)
+    for name in ["Alex", "Jordan", "Morgan", "Taylor", "Casey", "Riley"]:
+        network.add_person(name)
+
+    # Edge case: duplicate person
+    network.add_person("Alex")  # "Alex already exists in the network!"
+
+    # Create friendships (9 total)
+    network.add_friendship("Alex", "Jordan")
+    network.add_friendship("Alex", "Morgan")
+    network.add_friendship("Jordan", "Taylor")
+    network.add_friendship("Morgan", "Casey")
+    network.add_friendship("Taylor", "Riley")
+    network.add_friendship("Casey", "Riley")
+    network.add_friendship("Morgan", "Riley")
+    network.add_friendship("Alex", "Taylor")
+    network.add_friendship("Jordan", "Casey")
+
+    # Edge cases: nonexistent people
+    network.add_friendship("Jordan", "Johnny")  # "Friendship not created. Johnny doesn't exist!"
+    network.add_friendship("Ghost", "Alex")     # "Friendship not created. Ghost doesn't exist!"
+
+    # Edge case: duplicate friendship (should not double up)
+    network.add_friendship("Alex", "Jordan")
+
+    network.print_network()
